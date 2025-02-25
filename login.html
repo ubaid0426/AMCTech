@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #3a5ccc, #3a5ccc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+
+        .container img {
+            width: 90px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            color: #3a5ccc;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #3a5ccc;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #3a5ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .input-group input:focus {
+            border-color: #3a5ccc;
+            outline: none;
+        }
+
+        .btn {
+            background: #3a5ccc;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #3a5ccc;
+        }
+
+        .links {
+            margin-top: 12px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: #3a5ccc;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .error-message {
+            color: #ff3333;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="logo.png" alt="NIMC Logo">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <p id="errorMessage" class="error-message">Invalid email or password. Please try again.</p>
+            <button type="submit" class="btn">LOGIN</button>
+        </form>
+        <div class="links">
+            <p>Don't have an account? <a href="register.html">Register here</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Static credentials
+            const validEmail = "user@gmail.com";
+            const validPassword = "user123";
+            
+            const loginForm = document.getElementById("loginForm");
+            const errorMessage = document.getElementById("errorMessage");
+            
+            loginForm.addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent form submission
+                
+                // Get input values
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("password").value.trim();
+                
+                // Check if credentials match
+                if (email === validEmail && password === validPassword) {
+                    // Success - hide any error messages
+                    errorMessage.style.display = "none";
+                    
+                    // Show success message and redirect
+                    alert("Login successful! Redirecting to dashboard...");
+                    window.location.href = "dashboard2.html";
+                } else {
+                    // Failed login attempt - show error message
+                    errorMessage.style.display = "block";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #3a5ccc;
+      --secondary-color: #3a5ccc;
+      --hover-color: #7681a7;
+      --text-color: #ffffff;
+      --background-color: #ccd4ee;
+    }
+ 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: var(--background-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+      padding-bottom: 80px;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 800px;
+      margin-top: 40px;
+    }
+
+    .input-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      margin-top: 50px;
+    }
+
+    .verification-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 700px;
+      display: none;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--secondary-color);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--primary-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--hover-color);
+      box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.1);
+    }
+
+    input:invalid {
+      border-color: var(--secondary-color);
+    }
+
+    .error-message {
+      color: var(--secondary-color);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    input:invalid + .error-message {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem 1.5rem;
+      background-color:  #3a5ccc;
+      color: var(--text-color);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--hover-color);
+      transform: translateY(-1px);
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 2px solid #fff7e6;
+      height: 60px;
+      background-color: var(--primary-color);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .footer .icon {
+      color: white;
+      text-align: center;
+      font-size: 0.8rem;
+      flex: 1;
+      text-decoration: none;
+    }
+
+    .footer .icon img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .floating-icon {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 64px;
+      height: 64px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      border: 4px solid white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .floating-icon img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .floating-icon:hover {
+      background-color: #7681a7;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="input-container">
+      <div class="form-group">
+        <label for="NIN-input">Enter 11-character NIN ID</label>
+        <div class="input-wrapper">
+          <input 
+            type="number" 
+            id="NIN-input"
+            pattern="[0-9]{11}"
+            maxlength="11"
+            placeholder="Enter 11-NIN ID"
+            oninput="this.value = this.value.replace(/[^A-Za-z0-9]/g, '').slice(0, 11).toUpperCase()"
+            required
+          >
+          <div class="error-message">Please enter exactly 11 numeric characters</div>
+        </div>
+      </div>
+      <button onclick="validateAndVerifying()">Verify NIN</button>
+    </div>
+
+    <div class="verification-container" id="verification-section">
+      <div id="iframe-container"></div>
+      <button id="manual-download" style="margin-top:10px; display:none;" onclick="downloadPDF()">Download PDF</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="dashboard2.html" class="icon">
+      <img src="home_icon.webp" alt="Home"><br>Home
+    </a>
+    <a href="history.html" class="icon">
+      <img src="history_icon.png" alt="History"><br>History
+    </a>
+    <a href="https://wa.me/your-whatsapp-number" class="icon" target="_blank">
+      <img src="whatsapp_logo.jpeg" alt="Help"><br>Help
+    </a>
+    <a href="login.html" class="icon">
+      <img src="logout_icon.png" alt="Logout"><br>Logout
+    </a>
+  </div>
+
+  <div class="floating-icon">
+    <a href="menu.html">
+      <img src="menu_icon.png" alt="Floating">
+    </a>
+  </div>
+
+  <script>
+let currentNIN = '';
+let isDownloading = false;
+
+async function validateAndVerifying() {
+  const input = document.getElementById('NIN-input');
+  const value = input.value.replace(/\s/g, ''); // Remove any spaces
+}
+  
+  // Check if input is exactly 11 digits
+  if (value.length === 11 && /^\d{11}$/.test(value)) {
+    currentNIN = value;
+  }
+    
+    try {
+      await Swal.fire({
+        title: 'Processing...',
+        html: 'Verifying NIN ID',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        timer: 1500
+      });
+    }
+     
+
+      
+async function generatePDF(NIN) {
+  const { jsPDF } = window.jspdf;
+  const frame = document.getElementById('data-frame');
+  
+  if (!frame) {
+    throw new Error("Frame element not found");
+  }
+
+  // Wait for frame content to be fully loaded
+  await new Promise((resolve) => {
+    if (frame.contentDocument.readyState === 'complete') {
+      resolve();
+    } else {
+      frame.onload = resolve;
+    }
+  });
+
+
+  
+
+async function downloadPDF() {
+  if (isDownloading || !currentNIN) return;
+  
+  try {
+    isDownloading = true;
+    const doc = await generatePDF(currentNIN);
+    doc.save(`NIN_Veri_${currentNIN}.pdf`);
+  } catch (error) {
+    console.error('Download Error:', error);
+    await Swal.fire({
+      title: 'Error',
+      text: 'Failed to generate PDF. Please try again.',
+      icon: 'error',
+      confirmButtonColor: '#ff7a00'
+    });
+  } finally {
+    isDownloading = false;
+  }
+}  </script>
+</body>
+</html>
