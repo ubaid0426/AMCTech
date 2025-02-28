@@ -356,60 +356,105 @@
       gap: 5px;
     }
 
-    .services-grid {
+     /* Responsive Grid */
+     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(4, 1fr); /* 4 columns on large screens */
       gap: 20px;
+      padding: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+      }
     }
 
     .service-card {
-      background: white;
-      color: #333;
-      border-radius: 15px;
-      padding: 25px 20px;
-      text-align: center;
-      transition: var(--transition);
-      text-decoration: none;
-      box-shadow: var(--card-shadow);
+      background: var(--text-color);
+      border-radius: 10px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border: 1px solid var(--secondary-color);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 180px;
+      justify-content: space-between;
+      min-height: 220px;
     }
 
+    /* Remove underline from links inside service cards */
+.service-card a {
+  text-decoration: none;
+  color: inherit; /* Ensures the link inherits the text color */
+}
+
     .service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-      background-color: #f8f9ff;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(255, 69, 0, 0.2);
+      border-color: var(--hover-color);
     }
 
     .service-icon {
-      margin-bottom: 15px;
-      background-color: #f0f4ff;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-    }
+  width: 50px;
+  height: 50px;
+  background: var(--background-color);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+
 
     .service-card:hover .service-icon {
-      background-color: var(--primary-color);
+      background: var(--primary-color);
     }
 
-    .service-card h3 {
-      color: var(--primary-color);
+    .service-title {
       font-size: 1.1rem;
       font-weight: 600;
-      transition: var(--transition);
+      color: var(--secondary-color);
+      margin-bottom: 10px;
     }
 
-    .service-card:hover h3 {
-      color: var(--secondary-color);
+    .price {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-color);
+      background: var(--secondary-color);
+      padding: 8px 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
     }
+
+    .service-card:hover .price {
+      background: var(--hover-color);
+      color: var(--text-color);
+    }
+
+    .service-category {
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      background: var(--primary-color);
+      color: var(--text-color);
+    }
+
+    .service-card:hover .service-category {
+      background: var(--hover-color);
+      color: white;
+    }
+
 
     /* Footer */
     .footer {
@@ -511,7 +556,7 @@
       }
       
       .services-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
       }
       
       .service-card {
@@ -632,50 +677,149 @@
     </div>
 
     <!-- Services Section -->
-    <div class="services-section">
-      <div class="section-header">
-        <h2 class="section-title">Available Services</h2>
-        <a href="#" class="view-all">View All →</a>
+    <div class="services-grid">
+      <!-- Service 1 -->
+      <div class="service-card">
+        <div>
+          <div class="service-icon">
+            <img src="nin2.png" alt="nin Verification" width="60" height="50">
+          </div>
+          <a href="ninverify.html">
+            <div class="service-title">NIN Verification</div>
+            <div class="price">₦150</div>
+            <span class="service-category">Search Service</span>
+          </a>
+        </div>
       </div>
-      <div class="services-grid">
-        <a href="ninverify.html" class="service-card">
+
+      <!-- Service 2 -->
+      <div class="service-card">
+        <div>
           <div class="service-icon">
-            <img src="/api/placeholder/60/60" alt="NIN Verify">
+            <img src="nin2.png" alt="NIN Search by Phone" width="60" height="50">
           </div>
-          <h3>NIN Verify</h3>
-        </a>
-        <a href="ninphonesearch.html" class="service-card">
-          <div class="service-icon">
-            <img src="/api/placeholder/60/60" alt="NIN Phone Verify">
-          </div>
-          <h3>NIN Phone Verify</h3>
-        </a>
-        <a href="databundle.php" class="service-card">
-          <div class="service-icon">
-            <img src="/api/placeholder/60/60" alt="BVN Verify">
-          </div>
-          <h3>BVN Verify</h3>
-        </a>
-        <a href="airtime.html" class="service-card">
-          <div class="service-icon">
-            <img src="/api/placeholder/60/60" alt="BVN Phone Retrieval">
-          </div>
-          <h3>BVN Phone Retrieval</h3>
-        </a>
-        <a href="exampin.html" class="service-card">
-          <div class="service-icon">
-            <img src="/api/placeholder/60/60" alt="IPE Clearance">
-          </div>
-          <h3>IPE Clearance</h3>
-        </a>
-        <a href="jamb.html" class="service-card">
-          <div class="service-icon">
-            <img src="/api/placeholder/60/60" alt="Personalization">
-          </div>
-          <h3>Personalization</h3>
-        </a>
+          <a href="NINphonesearch.html">
+            <div class="service-title">NIN Search by Phone No.</div>
+            <div class="price">₦150</div>
+            <span class="service-category">Search Service</span>
+          </a>
+        </div>
       </div>
+
+      <!-- Service 3 -->
+      <div class="service-card">
+        <div>
+          <div class="service-icon">
+            <img src="nin2.png" alt="nin Ticket ID" width="60" height="50">
+          </div>
+          <a href="ninpersonalization.html">
+            <div class="service-title">NIN Personalization</div>
+            <div class="price">₦200</div>
+            <span class="service-category">Search Service</span>
+          </a>
+        </div>
+        
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-card">
+        <div>
+          <div class="service-icon">
+            <img src="nin2.png" alt="nin Modifications" width="60" height="50">
+          </div>
+          <a href="ninmod.html">
+            <div class="service-title">Submit NIN Modifications</div>
+            <div class="price">₦₦₦</div>
+            <span class="service-category">Modifications Service</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service 1 -->
+      <div class="service-card">
+        <div>
+          <div class="service-icon">
+            <img src="nin2.png" alt="nin Verification" width="60" height="50">
+          </div>
+          <a href="normalipe.html">
+            <div class="service-title">Normal Ipe Clearance</div>
+            <div class="price">₦800</div>
+            <span class="service-category">ClearanceService</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-card">
+        <div>
+          <div class="service-icon">
+            <img src="nin2.png" alt="NIN Search by Phone" width="60" height="50">
+          </div>
+          <a href="normalvalidation.html">
+            <div class="service-title">Normal Validation</div>
+            <div class="price">₦1000</div>
+            <span class="service-category">Search Service</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-card">
+        <div>
+          <div class="service-icon">
+            <img src="nin2.png" alt="nin Ticket ID" width="60" height="50">
+          </div>
+          <a href="suspendednin.html">
+            <div class="service-title">Suspended Enrol. Val.</div>
+            <div class="price">₦1,500</div>
+            <span class="service-category">Search Service</span>
+          </a>
+        </div>
+        
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-card">
+        <div>
+          <div class="service-icon">
+            <img src="nin2.png" alt="nin Modifications" width="60" height="50">
+          </div>
+          <a href="modvalidation.html">
+            <div class="service-title">CR-Mod Validation</div>
+            <div class="price">₦1,500</div>
+            <span class="service-category">Modifications Service</span>
+          </a>
+        </div>
     </div>
+     <!-- Service 9 -->
+     <div class="service-card">
+      <div>
+        <div class="service-icon">
+          <img src="nin2.png" alt="nin Ticket ID" width="60" height="50">
+        </div>
+        <a href="v-ninvalidation.html">
+          <div class="service-title">V-NIN Validation</div>
+          <div class="price">₦1,500</div>
+          <span class="service-category">Search Service</span>
+        </a>
+      </div>
+      
+    </div>
+
+    <!-- Service 10 -->
+    <div class="service-card">
+      <div>
+        <div class="service-icon">
+          <img src="nin2.png" alt="nin Modifications" width="60" height="50">
+        </div>
+        <a href="cominsoon.html">
+          <div class="service-title">V-NIN Slip Download</div>
+          <div class="price">₦200</div>
+          <span class="service-category">Modifications Service</span>
+        </a>
+      </div>
+  </div>
+ 
 
     <!-- Footer -->
     <div class="footer">
