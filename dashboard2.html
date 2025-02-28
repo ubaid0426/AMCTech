@@ -323,137 +323,39 @@
       background-color: var(--secondary-color);
     }
 
-    .powered-by {
-      font-size: 0.8rem;
-      color: #666;
-      margin-top: 20px;
-      text-align: right;
-      font-style: italic;
-    }
-
-    /* Services Section */
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      color: var(--primary-color);
-      font-weight: 600;
-      padding-left: 10px;
-      border-left: 4px solid var(--primary-color);
-    }
-
-    .view-all {
-      color: var(--primary-color);
-      font-weight: 500;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-     /* Responsive Grid */
-     .services-grid {
+    /* Services Grid */
+    .services-grid {
       display: grid;
-      grid-template-columns: repeat(4, 2fr); /* 4 columns on large screens */
+      grid-template-columns: repeat(4, 1fr); /* Default: 4 columns */
       gap: 20px;
-      padding: 10px;
     }
 
     @media (max-width: 768px) {
       .services-grid {
-        grid-template-columns: repeat(2, 2fr); /* 2 columns on small screens */
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
       }
     }
 
     .service-card {
       background: var(--text-color);
+      color: var(--primary-color);
+      border: 1px solid var(--hover-color);
       border-radius: 10px;
-      padding: 25px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      border: 1px solid var(--secondary-color);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 220px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
     }
-
-    /* Remove underline from links inside service cards */
-.service-card a {
-  text-decoration: none;
-  color: inherit; /* Ensures the link inherits the text color */
-}
 
     .service-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(255, 69, 0, 0.2);
-      border-color: var(--hover-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .service-icon {
-  width: 50px;
-  height: 50px;
-  background: var(--background-color);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
-  transition: all 0.3s ease;
-}
-
-
-
-    .service-card:hover .service-icon {
-      background: var(--primary-color);
+      margin-bottom: 15px;
     }
 
-    .service-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--secondary-color);
-      margin-bottom: 10px;
-    }
-
-    .price {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-color);
-      background: var(--secondary-color);
-      padding: 8px 15px;
-      border-radius: 8px;
-      margin-top: 15px;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .service-card:hover .price {
-      background: var(--hover-color);
-      color: var(--text-color);
-    }
-
-    .service-category {
-      font-size: 0.85rem;
-      padding: 6px 12px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-top: 10px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      background: var(--primary-color);
-      color: var(--text-color);
-    }
-
-    .service-card:hover .service-category {
-      background: var(--hover-color);
-      color: white;
-    }
 
 
     /* Footer */
@@ -556,7 +458,7 @@
       }
       
       .services-grid {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
       
       .service-card {
@@ -564,16 +466,6 @@
         padding: 15px;
       }
       
-      .service-icon {
-        width: 60px;
-        height: 60px;
-      }
-      
-      .footer {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-      }
     }
   </style>
 </head>
@@ -673,103 +565,39 @@
       </div>
     </div>
 
-    <!-- Services Section -->
-    <div class="services-grid">
-      <!-- Service 1 -->
-      <div class="service-card">
-        <div>
-          <div class="service-icon">
-            <img src="nin2.png" alt="nin Verification" width="60" height="50">
-          </div>
-          <a href="ninverify.html">
-            <div class="service-title">NIN Verification</div>
-            <div class="price">₦150</div>
-            <span class="service-category">Search Service</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Service 2 -->
-      <div class="service-card">
-        <div>
-          <div class="service-icon">
-            <img src="nin2.png" alt="NIN Search by Phone" width="60" height="50">
-          </div>
-          <a href="NINphonesearch.html">
-            <div class="service-title">NIN Search by Phone No.</div>
-            <div class="price">₦150</div>
-            <span class="service-category">Search Service</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Service 3 -->
-      <div class="service-card">
-        <div>
-          <div class="service-icon">
-            <img src="nin2.png" alt="nin Ticket ID" width="60" height="50">
-          </div>
-          <a href="ninpersonalization.html">
-            <div class="service-title">NIN Personalization</div>
-            <div class="price">₦200</div>
-            <span class="service-category">Search Service</span>
-          </a>
-        </div>
-        
-      </div>
-
-      <!-- Service 1 -->
-      <div class="service-card">
-        <div>
-          <div class="service-icon">
-            <img src="nin2.png" alt="nin Verification" width="60" height="50">
-          </div>
-          <a href="normalipe.html">
-            <div class="service-title">Normal Ipe Clearance</div>
-            <div class="price">₦800</div>
-            <span class="service-category">ClearanceService</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Service 2 -->
-      <div class="service-card">
-        <div>
-          <div class="service-icon">
-            <img src="bvn2.jpeg" alt="NIN Search by Phone" width="80" height="70">
-          </div>
-          <a href="normalvalidation.html">
-            <div class="service-title">BVN Search</div>
-            <div class="price">₦1000</div>
-            <span class="service-category">Search Service</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Service 4 -->
-      <div class="service-card">
-        <div>
-          <div class="service-icon">
-            <img src="bvn2.jpeg" alt="nin Modifications" width="80" height="70">
-          </div>
-          <a href="modvalidation.html">
-            <div class="service-title">BVN Retrieval</div>
-            <div class="price">₦1,500</div>
-            <span class="service-category">Search Service</span>
-          </a>
-        </div>
-    </div>
-  </div>
-    <!-- Footer -->
-    <div class="footer">
-      <div class="copyright">© 2025 AMTech Solutions. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="#" class="footer-link">Terms of Service</a>
-        <a href="#" class="footer-link">Privacy Policy</a>
-        <a href="#" class="footer-link">Contact Us</a>
-      </div>
-    </div>
-  </div>
+      <div class="services-grid">
+        <a href="ninservices.html" class="service-card">
+          <div class="service-icon"> <img src="NIN2.png" alt="Search icon" width="60" height="60"></div>
+          <h3>NIN_Verification</h3>
+        </a>
+        <a href="bvnservices.html" class="service-card">
+          <div class="service-icon"><img src="NIN2.png" alt="Search icon" width="70" height="60"></div>
+          <h3>NIN_With_Phone</h3>
+        </a>
+        <a href="databundle.php" class="service-card">
+          <div class="service-icon"><img src="NIN2.png" alt="Search icon" width="60" height="60"></div>
+          <h3>Personalization</h3>
+        </a>
+        <a href="airtime.html" class="service-card">
+          <div class="service-icon"><img src="NIN2.png" alt="Search icon" width="60" height="60"></div>
+          <h3>IPE_Clearance</h3>
+        </a>
+        <a href="exampin.html" class="service-card">
+          <div class="service-icon"> <img src="NIN2.png" alt="Search icon" width="60" height="60"></div>
+          <h3>Validation</h3>
+        </a>
+        <a href="jamb.html" class="service-card">
+          <div class="service-icon"><img src="bvn2.jpeg" alt="Search icon" width="60" height="60"></div>
+          <h3>BVN_Verification</h3>
+        </a>
+        <a href="newspaper.html" class="service-card">
+          <div class="service-icon"><img src="bvn2.jpeg" alt="Search icon" width="60" height="60"></div>
+          <h3>BVN-Retrieval</h3>
+        </a>
+        <a href="utilitybii.html" class="service-card">
+          <div class="service-icon"><img src="NIN2.png" alt="Search icon" width="60" height="60"></div>
+          <h3>Transaction</h3>
+        </a>
 
   <!-- Mobile Navigation -->
   <div class="mobile-nav">
