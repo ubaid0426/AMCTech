@@ -3,184 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | NIMC</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>AC Register</title>
     <style>
+        :root {
+            --primary-color: #3a5ccc;
+            --primary-light: #516fd4;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff7043;
+            --text-color: #333;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: linear-gradient(to right, #3a5ccc, #516fd4);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            background-color: #000;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 2rem 0;
         }
 
-
-        .container {
-            background: #ffffff;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 380px;
+            height: 100%;
+            background-image: url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        /* Stars and space elements */
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        .planet {
+            position: fixed;
+            top: 15%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b3ccff, #6699ff);
+            box-shadow: 0 0 20px rgba(153, 204, 255, 0.8);
+        }
+
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 160px;
+            height: 40px;
+            transform: translate(-50%, -50%) rotateX(70deg);
+            border-radius: 50%;
+            border: 8px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .light-streak {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 165, 0, 0.2), transparent);
+            transform: skewX(-20deg);
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .register-container {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 450px;
             text-align: center;
+            z-index: 10;
+            margin: 2rem 0;
         }
 
-        .container img {
-            width: 90px;
-            margin-bottom: 15px;
+        .logo {
+            margin-bottom: 1.5rem;
         }
 
-        h2 {
-            color: #3a5ccc;
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .logo img {
+            max-width: 100px;
+            height: 40px;
+        }
+
+        .register-title {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-weight: 500;
         }
 
         .input-group {
-            position: relative;
-            margin-bottom: 18px;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: var(--text-color);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .input-field:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(81, 111, 212, 0.2);
+        }
+
+        .name-fields {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            margin-left: 0.5rem;
             text-align: left;
         }
 
-        .input-group label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #3a5ccc;
+        .checkbox {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+
+        .checkbox input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #eee;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .checkbox input:checked ~ .checkmark {
+            background-color: var(--primary-light);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox input:checked ~ .checkmark:after {
             display: block;
-            margin-bottom: 6px;
         }
 
-        .input-group input {
+        .checkbox .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .terms-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .terms-text a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        .register-btn {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #3a5ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        .input-group input:focus {
-            border-color: #3a5ccc;
-            outline: none;
-        }
-
-        .btn {
-            background: #3a5ccc;
-            color: #ffffff;
+            padding: 1rem;
+            background-color: var(--primary-light);
+            color: var(--white);
             border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 8px;
+            border-radius: 5px;
+            font-size: 1rem;
             cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            transition: 0.3s;
+            transition: var(--transition);
+            margin-bottom: 1.5rem;
         }
 
-        .btn:hover {
-            background: #026937;
+        .register-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 1.5rem 0;
         }
 
         .links {
-            margin-top: 12px;
+            display: flex;
+            justify-content: center;
         }
 
-        .links a {
+        .link {
+            color: var(--text-light);
             text-decoration: none;
-            color: #3a5ccc;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .link:hover {
+            color: var(--primary-light);
+        }
+
+        /* Make the form responsive on smaller screens */
+        @media (max-width: 576px) {
+            .name-fields {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .register-container {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="logo.png" alt="NIMC Logo">
-        <h2>Register</h2>
-        <form>
-            <div class="input-group">
-                <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" placeholder="Enter your full name" required>
+    <div class="background"></div>
+    
+    <!-- Space elements -->
+    <div class="planet">
+        <div class="ring"></div>
+    </div>
+    <div class="light-streak"></div>
+    
+    <div class="register-container">
+        <div class="logo">
+           <img src="logo.png" alt="">
+        </div>
+        
+        <h1 class="register-title">Create an Account</h1>
+        
+        <form id="registerForm">
+            <div class="name-fields">
+                <div class="input-group">
+                    <input type="text" class="input-field" placeholder="First Name" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" class="input-field" placeholder="Last Name" required>
+                </div>
             </div>
+            
             <div class="input-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
+                <input type="email" class="input-field" placeholder="Email Address" required>
             </div>
+            
             <div class="input-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                <input type="tel" class="input-field" placeholder="Phone Number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Format: 123-456-7890" required>
             </div>
+            
             <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+                <input type="password" class="input-field" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn">REGISTER</button>
+            
+            <div class="input-group">
+                <input type="password" class="input-field" placeholder="Confirm Password" required>
+            </div>
+            
+            <div class="terms">
+                <label class="checkbox">
+                    <input type="checkbox" required>
+                    <span class="checkmark"></span>
+                </label>
+                <span class="terms-text">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+            </div>
+            
+            <button type="submit" class="register-btn">Register Account</button>
         </form>
+        
+        <div class="divider"></div>
+        
         <div class="links">
-            <p>Already have an account? <a href="login.html">Login here</a></p>
+            <a href="login.html" class="link">Already have an account? Login!</a>
         </div>
     </div>
+
+    <script>
+        // Create stars dynamically
+        function createStars() {
+            const numStars = 100;
+            const container = document.body;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random size
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random twinkle animation delay
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        // Password confirmation validation
+        function validatePassword() {
+            const password = document.querySelectorAll('input[type="password"]')[0].value;
+            const confirmPassword = document.querySelectorAll('input[type="password"]')[1].value;
+            
+            if (password !== confirmPassword) {
+                alert("Passwords don't match!");
+                return false;
+            }
+            return true;
+        }
+        
+        // Phone number formatting
+        document.querySelector('input[type="tel"]').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    e.target.value = value;
+                } else if (value.length <= 6) {
+                    e.target.value = value.slice(0, 3) + '-' + value.slice(3);
+                } else {
+                    e.target.value = value.slice(0, 3) + '-' + value.slice(3, 6) + '-' + value.slice(6, 10);
+                }
+            }
+        });
+        
+        // Handle form submission
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.querySelectorAll('input[type="text"]')[0].value;
+            const lastName = document.querySelectorAll('input[type="text"]')[1].value;
+            const email = document.querySelector('input[type="email"]').value;
+            const phone = document.querySelector('input[type="tel"]').value;
+            
+            // Validate passwords match
+            if (!validatePassword()) {
+                return;
+            }
+            
+            // Simple validation (can be expanded)
+            if (!firstName || !lastName || !email || !phone) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Mock registration - in a real app, this would call your API
+            console.log('Registration attempt with:', { firstName, lastName, email, phone });
+            alert('Registration successful! Please check your email to confirm your account.');
+            
+            // Redirect to login page
+            window.location.href = 'login.html';
+        });
+        
+        // Initialize stars on page load
+        window.addEventListener('load', createStars);
+    </script>
 </body>
-
-<script>
-
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("form");
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const fullName = sanitizeInput(document.getElementById("fullname").value.trim());
-        const email = sanitizeInput(document.getElementById("email").value.trim());
-        const phone = sanitizeInput(document.getElementById("phone").value.trim());
-        const password = sanitizeInput(document.getElementById("password").value.trim());
-
-        if (!fullName || !email || !phone || !password) {
-            alert("All fields are required!");
-            return;
-        }
-
-        if (!validateEmail(email)) {
-            alert("Please enter a valid email address!");
-            return;
-        }
-
-        if (!validatePhone(phone)) {
-            alert("Please enter a valid phone number!");
-            return;
-        }
-
-        if (password.length < 6) {
-            alert("Password must be at least 6 characters long!");
-            return;
-        }
-
-        alert("Registration Successful!");
-        form.reset();
-    });
-
-    function sanitizeInput(input) {
-        return input.replace(/['"<>;]/g, ""); // Removes potentially dangerous characters
-    }
-
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
-
-    function validatePhone(phone) {
-        const re = /^[0-9]{11,11}$/;
-        return re.test(phone);
-    }
-});
-
-
-</script>
 </html>
-

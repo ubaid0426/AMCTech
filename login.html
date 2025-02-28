@@ -3,159 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Amc Login</title>
     <style>
+        :root {
+            --primary-color: #3a5ccc;
+            --primary-light: #516fd4;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff7043;
+            --text-color: #333;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: linear-gradient(to right, #3a5ccc, #3a5ccc);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            background-color: #000;
+            position: relative;
+            overflow: hidden;
         }
 
-        .container {
-            background: #ffffff;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 380px;
+            height: 100%;
+            background-image: url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        /* Stars and space elements */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        .planet {
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b3ccff, #6699ff);
+            box-shadow: 0 0 20px rgba(153, 204, 255, 0.8);
+        }
+
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 160px;
+            height: 40px;
+            transform: translate(-50%, -50%) rotateX(70deg);
+            border-radius: 50%;
+            border: 8px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .light-streak {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 165, 0, 0.2), transparent);
+            transform: skewX(-20deg);
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .login-container {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
+            z-index: 10;
         }
 
-        .container img {
-            width: 90px;
-            margin-bottom: 15px;
+        .logo {
+            margin-bottom: 1.5rem;
         }
 
-        h2 {
-            color: #3a5ccc;
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .logo img {
+            max-width: 100px;
+            height: 40px;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-weight: 500;
         }
 
         .input-group {
-            position: relative;
-            margin-bottom: 18px;
-            text-align: left;
+            margin-bottom: 1.5rem;
         }
 
-        .input-group label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #3a5ccc;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .input-group input {
+        .input-field {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #3a5ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        .input-group input:focus {
-            border-color: #3a5ccc;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: var(--text-color);
             outline: none;
+            transition: var(--transition);
         }
 
-        .btn {
-            background: #3a5ccc;
-            color: #ffffff;
-            border: none;
-            padding: 12px;
+        .input-field:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(81, 111, 212, 0.2);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .checkbox {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .checkbox input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #eee;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .checkbox input:checked ~ .checkmark {
+            background-color: var(--primary-light);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .remember-me-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .login-btn {
             width: 100%;
-            border-radius: 8px;
+            padding: 1rem;
+            background-color: var(--primary-light);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
             cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            transition: 0.3s;
+            transition: var(--transition);
+            margin-bottom: 1.5rem;
         }
 
-        .btn:hover {
-            background: #3a5ccc;
+        .login-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 1.5rem 0;
         }
 
         .links {
-            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .links a {
+        .link {
+            color: var(--text-light);
             text-decoration: none;
-            color: #3a5ccc;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
         }
-        
-        .error-message {
-            color: #ff3333;
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
+
+        .link:hover {
+            color: var(--primary-light);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="logo.png" alt="NIMC Logo">
-        <h2>Login</h2>
+    <div class="background"></div>
+    
+    <!-- Space elements -->
+    <div class="planet">
+        <div class="ring"></div>
+    </div>
+    <div class="light-streak"></div>
+    
+    <div class="login-container">
+        <div class="logo">
+            <img src="logo.png" alt="">
+        </div>
+        
+        <h1 class="login-title">Login</h1>
+        
         <form id="loginForm">
             <div class="input-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
+                <input type="email" class="input-field" placeholder="Enter Email Address" required>
             </div>
+            
             <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+                <input type="password" class="input-field" placeholder="Password" required>
             </div>
-            <p id="errorMessage" class="error-message">Invalid email or password. Please try again.</p>
-            <button type="submit" class="btn">LOGIN</button>
+            
+            <div class="remember-me">
+                <label class="checkbox">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <span class="remember-me-text">Remember Me</span>
+            </div>
+            
+            <button type="submit" class="login-btn">Login</button>
         </form>
+        
+        <div class="divider"></div>
+        
         <div class="links">
-            <p>Don't have an account? <a href="register.html">Register here</a></p>
+            <a href="#" class="link">Forgot Password?</a>
+            <a href="register.html" class="link">Create an Account!</a>
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Static credentials
-            const validEmail = "user@gmail.com";
-            const validPassword = "user123";
+        // Handle form submission
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const email = document.querySelector('input[type="email"]').value;
+    const password = document.querySelector('input[type="password"]').value;
+    
+    // // Simple validation (can be expanded)
+    // if (!email || !password) {
+    //     alert('Please fill in all fields');
+    //     return;
+    // }
+    
+    // Check for specific credentials
+    if (email === 'user@gmail.com' && password === 'user123') {
+        alert('Login Successful');
+        // Redirect to dashboard2.html
+        window.location.href = 'dashboard2.html';
+    } else {
+        // Show error for incorrect credentials
+        alert('Invalid email or password. Please try again.');
+    }
+    
+    // Clear form
+    this.reset();
+});
+        // Create stars dynamically
+        function createStars() {
+            const numStars = 100;
+            const container = document.body;
             
-            const loginForm = document.getElementById("loginForm");
-            const errorMessage = document.getElementById("errorMessage");
-            
-            loginForm.addEventListener("submit", function(event) {
-                event.preventDefault(); // Prevent form submission
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
                 
-                // Get input values
-                const email = document.getElementById("email").value.trim();
-                const password = document.getElementById("password").value.trim();
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
                 
-                // Check if credentials match
-                if (email === validEmail && password === validPassword) {
-                    // Success - hide any error messages
-                    errorMessage.style.display = "none";
-                    
-                    // Show success message and redirect
-                    alert("Login successful! Redirecting to dashboard...");
-                    window.location.href = "dashboard2.html";
-                } else {
-                    // Failed login attempt - show error message
-                    errorMessage.style.display = "block";
-                }
-            });
-        });
+                // Random size
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random twinkle animation delay
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        // Initialize stars on page load
+        window.addEventListener('load', createStars);
     </script>
 </body>
 </html>
